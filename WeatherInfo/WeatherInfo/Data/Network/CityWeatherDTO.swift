@@ -64,4 +64,14 @@ struct CityWeatherDTO: Codable {
         case mainInfo = "main"
         case base, visibility, wind, clouds, dt, timezone, id, name, cod
     }
+    
+    func toSimple() -> SimpleWeatherInfo? {
+        guard let icon = weatherCodes.first?.icon else {
+            return nil
+        }
+        return SimpleWeatherInfo.init(icon: icon,
+                                      city: name,
+                                      humidity: mainInfo.humidity,
+                                      temperature: mainInfo.temperature)
+    }
 }

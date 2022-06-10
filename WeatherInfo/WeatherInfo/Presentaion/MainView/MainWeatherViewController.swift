@@ -9,6 +9,8 @@ import UIKit
 
 class MainWeatherViewController: UIViewController, StoryboardInitiative {
     
+    @IBOutlet weak var weatherCollectionView: UICollectionView!
+    
     private var viewModel: MainWeatherViewModel!
     
     override func viewDidLoad() {

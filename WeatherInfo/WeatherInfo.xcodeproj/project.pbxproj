@@ -22,6 +22,8 @@
 		B0B4A8B328521519008F308B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0B4A8B228521519008F308B /* Assets.xcassets */; };
 		B0B4A8B628521519008F308B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0B4A8B428521519008F308B /* LaunchScreen.storyboard */; };
 		B0B4A8C128521519008F308B /* WeatherInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B4A8C028521519008F308B /* WeatherInfoTests.swift */; };
+		B0B66D1528536F42006C06C1 /* MainWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B66D1428536F42006C06C1 /* MainWeatherCollectionViewCell.swift */; };
+		B0B66D172853735D006C06C1 /* SimpleWeatherInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B66D162853735D006C06C1 /* SimpleWeatherInfo.swift */; };
 		B0B7D51F2852381D0048170D /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B7D51E2852381D0048170D /* EndPoint.swift */; };
 		B0B7D521285238290048170D /* APIEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B7D520285238290048170D /* APIEndPoint.swift */; };
 		B0B8194628521F6800C7C573 /* NetworkRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B8194528521F6800C7C573 /* NetworkRequester.swift */; };
@@ -68,6 +70,8 @@
 		B0B4A8BC28521519008F308B /* WeatherInfoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherInfoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0B4A8C028521519008F308B /* WeatherInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoTests.swift; sourceTree = "<group>"; };
 		B0B4A8C628521519008F308B /* WeatherInfoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherInfoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0B66D1428536F42006C06C1 /* MainWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
+		B0B66D162853735D006C06C1 /* SimpleWeatherInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleWeatherInfo.swift; sourceTree = "<group>"; };
 		B0B7D51E2852381D0048170D /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		B0B7D520285238290048170D /* APIEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndPoint.swift; sourceTree = "<group>"; };
 		B0B8194528521F6800C7C573 /* NetworkRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequester.swift; sourceTree = "<group>"; };
@@ -217,6 +221,7 @@
 		B0B4A8DC285217BD008F308B /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				B0B66D1828537361006C06C1 /* Entity */,
 				B0954C39285355EE00920797 /* Usecase */,
 				B0B8194C285230F800C7C573 /* Interfaces */,
 			);
@@ -254,8 +259,17 @@
 				B0954C3A285355F600920797 /* ViewModel */,
 				B0B4A8AD28521513008F308B /* MainWeatherViewController.swift */,
 				B0B4A8AF28521513008F308B /* MainWeatherViewController.storyboard */,
+				B0B66D1428536F42006C06C1 /* MainWeatherCollectionViewCell.swift */,
 			);
 			path = MainView;
+			sourceTree = "<group>";
+		};
+		B0B66D1828537361006C06C1 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				B0B66D162853735D006C06C1 /* SimpleWeatherInfo.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		B0B8194428521F5600C7C573 /* Network */ = {
@@ -433,6 +447,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0B66D172853735D006C06C1 /* SimpleWeatherInfo.swift in Sources */,
 				B0954C41285359AB00920797 /* StoryboardInitiative.swift in Sources */,
 				B0B8194F2852312000C7C573 /* WeatherRepository.swift in Sources */,
 				B0B7D521285238290048170D /* APIEndPoint.swift in Sources */,
@@ -443,6 +458,7 @@
 				B0954C3C2853560C00920797 /* MainWeatherViewModel.swift in Sources */,
 				B0B4A8AA28521513008F308B /* AppDelegate.swift in Sources */,
 				B0B4A8AC28521513008F308B /* SceneDelegate.swift in Sources */,
+				B0B66D1528536F42006C06C1 /* MainWeatherCollectionViewCell.swift in Sources */,
 				B0954C332853518F00920797 /* SceneDiContainer.swift in Sources */,
 				B0954C312853518600920797 /* AppDiContainer.swift in Sources */,
 				B0954C352853523A00920797 /* AppCoordinator.swift in Sources */,
