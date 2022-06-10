@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MainWeatherCoordinatorDependencies {
-    func  makeMainWeatherViewController(actions: MainWeatherViewModelActions) -> MainViewController
+    func  makeMainWeatherViewController(actions: MainWeatherViewModelActions) -> MainWeatherViewController
     
 }
 

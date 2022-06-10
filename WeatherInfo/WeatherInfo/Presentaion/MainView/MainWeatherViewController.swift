@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainWeatherViewController.swift
 //  WeatherInfo
 //
 //  Created by 이다훈 on 2022/06/09.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController, StoryboardInitiative {
+class MainWeatherViewController: UIViewController, StoryboardInitiative {
     
     private var viewModel: MainWeatherViewModel!
     
@@ -18,7 +18,7 @@ class MainViewController: UIViewController, StoryboardInitiative {
 
 }
 
-extension MainViewController {
+extension MainWeatherViewController {
     static func create(with: MainWeatherViewModel) -> Self {
         let vc = self.initiate(nil)
         vc.viewModel = with

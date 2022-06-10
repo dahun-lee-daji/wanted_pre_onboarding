@@ -40,8 +40,8 @@ class SceneDIContainer {
         return DefaultMainWeatherViewModel.init(mainWeatherUseCase: makeMainWeatherUseCase(), actions: action)
     }
     
-    func makeMainWeatherViewController(actions: MainWeatherViewModelActions) -> MainViewController {
-        return  MainViewController
+    func makeMainWeatherViewController(actions: MainWeatherViewModelActions) -> MainWeatherViewController {
+        return  MainWeatherViewController
             .create(with: makeMainWeatherViewModel(action: actions))
     }
     
