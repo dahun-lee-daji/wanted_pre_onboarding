@@ -7,24 +7,23 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
-
+class MainViewController: UIViewController, StoryboardInitiative {
+    
+    private var viewModel: MainWeatherViewModel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let repo = DefaultWeatherRepository.init()
-        
-        Task{
-            do {
-                
-//                let result = try await repo.fetchMainCities()
-                print("viewcon \(repo)")
-            } catch {
-                print(error)
-            }
-        }
-        
+        print("helloWorld\(viewModel)")
     }
 
+}
+
+extension MainViewController {
+    static func create(with: MainWeatherViewModel) -> Self {
+        let vc = self.initiate(nil)
+        vc.viewModel = with
+        return vc
+    }
+    
 }
 
