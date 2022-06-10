@@ -14,14 +14,15 @@ class DefaultWeatherRepository: WeatherRepository {
         self.networkService = networkService
     }
     
-    func fetchMainCities() async throws {
+    func fetchCity(code: APIEndPoint.CityCode) async throws -> CityWeatherDTO {
         do {
-            let apiRequest = try APIEndPoint.init().test().asUrlRequest()
-            let task: Result<CityWeatherDTO,NetworkServiceErrors> = try await networkService.request(request: apiRequest)
+            let request = try APIEndPoint.init().getEndPoint(city: code).asUrlRequest()
+            
+            let task: Result<CityWeatherDTO,NetworkServiceErrors> = try await networkService.request(request: request)
             
             switch task {
             case.success(let data) :
-                print(data)
+                return data
             case.failure(let err):
                 throw err
             }
@@ -29,6 +30,33 @@ class DefaultWeatherRepository: WeatherRepository {
         } catch {
             throw error
         }
+        
+    }
+    
+    func fetchMainCities() async throws -> [CityWeatherDTO] {
+        var cities = [CityWeatherDTO]()
+        do {
+            let endPoints = APIEndPoint.init().getAllCityEndPoint()
+            let apiRequests = try endPoints.map({
+                try $0.asUrlRequest()
+            })
+            
+            for request in apiRequests {
+                let task: Result<CityWeatherDTO,NetworkServiceErrors> = try await networkService.request(request: request)
+                
+                switch task {
+                case.success(let data) :
+                    cities.append(data)
+                case.failure(let err):
+                    throw err
+                }
+            }
+            
+        } catch {
+            throw error
+        }
+        
+        return cities
     }
     
 }

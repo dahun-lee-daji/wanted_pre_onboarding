@@ -46,14 +46,6 @@ struct Clouds: Codable {
     var all: Int
 }
 
-struct Sys: Codable {
-    var type: Int //Internal parameter
-    var id: Int //Internal parameter
-    var country: String //Country code (GB, JP etc.)
-    var sunrise: Int //Sunrise time, unix, UTC
-    var sunset: Int //Sunset time, unix, UTC
-}
-
 struct CityWeatherDTO: Codable {
     var weatherCodes: [WeatherCodes]
     var base: String //internal param
@@ -62,16 +54,14 @@ struct CityWeatherDTO: Codable {
     var wind: Wind
     var clouds: Clouds
     var dt: Int //Time of data calculation, unix, UTC
-    var sys: Sys
     var timezone: Int
     var id: Int
     var name: String
     var cod: Int
     
     enum CodingKeys: String, CodingKey {
-//        case coordinate = "coord"
         case weatherCodes = "weather"
         case mainInfo = "main"
-        case base, visibility, wind, clouds, dt, sys, timezone, id, name, cod
+        case base, visibility, wind, clouds, dt, timezone, id, name, cod
     }
 }

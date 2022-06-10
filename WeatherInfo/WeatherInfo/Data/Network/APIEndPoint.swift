@@ -45,11 +45,36 @@ struct APIEndPoint {
         )
     }
     
+    func getAllCityEndPoint() -> [EndPoint] {
+        return CityCode.allCases.map({
+            getEndPoint(city: $0)
+        })
+    }
+    
 }
 
 extension APIEndPoint {
-    enum CityCode: Int {
+    enum CityCode: Int, CaseIterable {
+        case gongju = 1842616//공주
+        case gwangju = 1841811 // 광주 광역시
+        case gumi = 1842225
+        case gunsan = 1842025
+        case daegu = 1835327
+        case daejeon = 1835235
+        case mokpo = 1841066
+        case busan = 1838519
+        case seosan = 1835895
         case seoul = 1835848
+        case sokcho = 1836553
+        case suwon = 1835553
+        case suncheon = 1835648
+        case ulsan = 1833742
+        case iksan = 1843491
+        case jeonju = 1845457
+        case jeju = 1846266 // 제주도x 제주시o
+        case cheonan = 1845759
+        case cheongju = 1845604
+        case chuncheon = 1845136
     }
 }
 

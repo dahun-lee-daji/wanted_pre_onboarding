@@ -16,7 +16,8 @@ class ViewController: UIViewController {
         
         Task{
             do {
-                try await repo.fetchMainCities()
+                let result = try await repo.fetchMainCities()
+                print("viewcon \(result)")
             } catch {
                 print(error)
             }
