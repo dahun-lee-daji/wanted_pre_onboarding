@@ -13,7 +13,7 @@ enum NetworkServiceErrors: Error {
 }
 
 protocol NetworkService {
-    func request<T: Codable>(url: URL) async throws -> Result<T,NetworkServiceErrors>
+    func request<T: Codable>(request: URLRequest) async throws -> Result<T,NetworkServiceErrors>
 }
 
 class DefaultNetworkService: NetworkService {
@@ -24,21 +24,23 @@ class DefaultNetworkService: NetworkService {
         self.networkRequester = requester
     }
     
-    func request<T:Codable>(url: URL) async throws -> Result<T, NetworkServiceErrors> {
-        let data = try await networkRequester.request(url: url)
+    func request<T:Codable>(request: URLRequest) async throws -> Result<T, NetworkServiceErrors> {
         
-        return decode(data: data)
+        do{
+            let data = try await networkRequester.request(request: request)
+            return try decode(data: data)
+        } catch {
+            throw error
+        }
     }
     
-    private func decode<T:Codable> (data: Data?) -> Result<T,NetworkServiceErrors> {
+    private func decode<T:Codable> (data: Data?) throws -> Result<T,NetworkServiceErrors> {
         guard let data = data else {
             return .failure(.failDecodeNilData)
         }
         
-        let decoder = try? JSONDecoder().decode(T.self, from: data)
-        guard let decoded = decoder else {
-            return .failure(.invalidData(data: data))
-        }
+        let decoded = try JSONDecoder().decode(T.self, from: data)
+        
         return .success(decoded)
     }
 }

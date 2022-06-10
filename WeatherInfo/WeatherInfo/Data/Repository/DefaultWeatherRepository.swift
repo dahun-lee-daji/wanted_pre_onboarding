@@ -14,17 +14,20 @@ class DefaultWeatherRepository: WeatherRepository {
         self.networkService = networkService
     }
     
-    func fetchMainCities() {
-        let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=\(APIKeys.init().info)")!
-        
-        Task {
-            let task: Result<Data,NetworkServiceErrors> = try await networkService.request(url: url)
+    func fetchMainCities() async throws {
+        do {
+            let apiRequest = try APIEndPoint.init().test().asUrlRequest()
+            let task: Result<CityWeatherDTO,NetworkServiceErrors> = try await networkService.request(request: apiRequest)
+            
             switch task {
             case.success(let data) :
                 print(data)
             case.failure(let err):
-                print(err)
+                throw err
             }
+            
+        } catch {
+            throw error
         }
     }
     

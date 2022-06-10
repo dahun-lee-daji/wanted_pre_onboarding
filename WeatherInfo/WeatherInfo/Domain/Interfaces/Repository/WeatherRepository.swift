@@ -8,5 +8,5 @@
 import Foundation
 
 protocol WeatherRepository {
-    func fetchMainCities()
+    func fetchMainCities() async throws
 }

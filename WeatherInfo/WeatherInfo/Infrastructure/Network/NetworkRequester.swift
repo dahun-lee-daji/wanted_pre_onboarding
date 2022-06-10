@@ -8,7 +8,7 @@
 import Foundation
 
 protocol NetworkRequester {
-    func request(url: URL) async throws -> Data
+    func request(request: URLRequest) async throws -> Data 
 }
 
 enum NetworkRequestErrors: Error {
@@ -19,11 +19,8 @@ enum NetworkRequestErrors: Error {
 
 class DefaultNetworkRequester : NetworkRequester {
     
-    
-    func request(url: URL) async throws -> Data {
-        let task = URLRequest.init(url: url)
-        let (data, response) = try await URLSession.shared.data(for: task)
-        
+    func request(request: URLRequest) async throws -> Data {
+        let (data, response) = try await URLSession.shared.data(for: request)
         guard let response = response as? HTTPURLResponse else {
             throw NetworkRequestErrors.invalidResponseWith(url: response.url)
         }
