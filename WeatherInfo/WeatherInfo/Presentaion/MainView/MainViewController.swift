@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,8 +16,9 @@ class ViewController: UIViewController {
         
         Task{
             do {
-                let result = try await repo.fetchMainCities()
-                print("viewcon \(result)")
+                
+//                let result = try await repo.fetchMainCities()
+                print("viewcon \(repo)")
             } catch {
                 print(error)
             }
