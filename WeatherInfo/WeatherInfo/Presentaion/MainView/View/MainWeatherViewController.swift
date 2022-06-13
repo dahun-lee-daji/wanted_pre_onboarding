@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainWeatherViewController: UIViewController, StoryboardInitiative {
+class MainWeatherViewController: UIViewController {
     
     @IBOutlet weak var weatherCollectionView: UICollectionView!
     
@@ -85,7 +85,7 @@ class MainWeatherViewController: UIViewController, StoryboardInitiative {
 
 }
 
-extension MainWeatherViewController {
+extension MainWeatherViewController: StoryboardInitiative {
     static func create(with: MainWeatherViewModel) -> Self {
         let vc = self.initiate(nil)
         vc.viewModel = with
