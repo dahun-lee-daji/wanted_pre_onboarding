@@ -8,7 +8,8 @@
 import UIKit
 
 protocol MainWeatherCoordinatorDependencies {
-    func  makeMainWeatherViewController(actions: MainWeatherViewModelActions) -> MainWeatherViewController
+    func makeMainWeatherViewController(actions: MainWeatherViewModelActions) -> MainWeatherViewController
+    func makeDetailWeatherViewController(actions: DetailWeatherViewModelActions, id: Int) -> DetailWeatherViewController
     
 }
 
@@ -24,7 +25,12 @@ class MainWeatherCoordinator {
     }
     
     func start() {
-        let vc = dependencies.makeMainWeatherViewController(actions: .init(reload: reload))
+        let vc = dependencies
+            .makeMainWeatherViewController(actions:
+                    .init(reload: reload,
+                         pushDetailView: pushDetail)
+            )
+        
         self.navigationController?.pushViewController(vc, animated: false)
     }
     
@@ -38,5 +44,17 @@ class MainWeatherCoordinator {
             
             vc.updateSnapShot()
         }
+    }
+    
+    private func pushDetail(id: Int) {
+        let detailVC = dependencies
+            .makeDetailWeatherViewController(actions: .init(popWithError: popTopView),
+                                             id: id)
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
+    
+    private func popTopView(error: Error) {
+        self.navigationController?.popViewController(animated: true)
+        //present error popup
     }
 }

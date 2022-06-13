@@ -20,7 +20,8 @@ protocol MainWeatherViewModel: MainWeatherViewModelInput, MainWeatherViewModelOu
 }
 
 struct MainWeatherViewModelActions {
-    let reload : () -> Void
+    let reload: () -> Void
+    let pushDetailView: (Int) -> Void
 }
 
 class DefaultMainWeatherViewModel: MainWeatherViewModel {
@@ -56,12 +57,6 @@ class DefaultMainWeatherViewModel: MainWeatherViewModel {
 extension DefaultMainWeatherViewModel {
     // - MARK: Input
     func selectedItem(id: Int) {
-        guard let firstItem = data.first(where: {
-            $0.id == id
-        }) else {
-            return
-        }
-                
-        print("selected: \(firstItem.id) \(firstItem.name)")
+        actions.pushDetailView(id)
     }
 }

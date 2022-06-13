@@ -45,6 +45,22 @@ class SceneDIContainer {
             .create(with: makeMainWeatherViewModel(action: actions))
     }
     
+    // MARK: - DetailWeatherView
+    
+    func makeDetailWeatherUseCase(id: Int) -> DetailWeatherUsecase {
+        return DefaultDetailWeatherUsecase.init(weatherRepo: makeWeatherRepository(), id: id)
+        }
+    
+    func makeDetailWeatherViewModel(action: DetailWeatherViewModelActions,
+                                    id: Int) -> DetailWeatherViewModel {
+        return DefaultDetailWeatherViewModel.init(detailWeatherUseCase: makeDetailWeatherUseCase(id: id), actions: action)
+    }
+    
+    func makeDetailWeatherViewController(actions: DetailWeatherViewModelActions, id: Int) -> DetailWeatherViewController {
+        return  DetailWeatherViewController
+            .create(with: makeDetailWeatherViewModel(action: actions, id: id))
+    }
+    
 }
 
 extension SceneDIContainer: MainWeatherCoordinatorDependencies {

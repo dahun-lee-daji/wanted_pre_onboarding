@@ -41,6 +41,24 @@ class DefaultWeatherRepository: WeatherRepository {
         }
     }
     
+    func fetchCity(code: Int) async throws -> CityWeatherDTO {
+        do {
+            let request = try APIEndPoint.init().getEndPoint(cityCode: code).asUrlRequest()
+
+            let task: Result<CityWeatherDTO,NetworkServiceErrors> = try await networkService.request(request: request)
+
+            switch task {
+            case.success(let data) :
+                return data
+            case.failure(let err):
+                throw err
+            }
+
+        } catch {
+            throw error
+        }
+    }
+    
     func fetchMainCities() async throws -> [CityWeatherDTO] {
         var cities = [CityWeatherDTO]()
         do {

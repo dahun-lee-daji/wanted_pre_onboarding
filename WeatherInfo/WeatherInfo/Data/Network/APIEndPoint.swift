@@ -45,6 +45,21 @@ struct APIEndPoint {
         )
     }
     
+    func getEndPoint(cityCode: Int) -> EndPoint {
+        
+        let cityId = URLQueryItem.init(name: "id", value: "\(cityCode)")
+        
+        return EndPoint.init(scheme: scheme.rawValue,
+                             host: host,
+                             apiPath: apiPath.rawValue,
+                             httpMethod: .get,
+                             items: [cityId,
+                                     unitQueryItem,
+                                     languageQueryItem,
+                                     apiKeyQueryItem]
+        )
+    }
+    
     func getAllCityEndPoint() -> [EndPoint] {
         return CityCode.allCases.map({
             getEndPoint(city: $0)
