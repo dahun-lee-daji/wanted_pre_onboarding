@@ -8,7 +8,7 @@
 import Foundation
 
 protocol MainWeatherViewModelInput {
-    func isEqualIfNotReload(with: [CityWeatherDTO])
+    func selectedItem(id: Int)
 }
 
 protocol MainWeatherViewModelOutput {
@@ -41,7 +41,7 @@ class DefaultMainWeatherViewModel: MainWeatherViewModel {
     
     private func loadData() {
         do {
-            try useCase.test2(closure: {
+            try useCase.fetchMainCities(closure: {
                 self.data = $0
             })
             
@@ -55,10 +55,13 @@ class DefaultMainWeatherViewModel: MainWeatherViewModel {
 
 extension DefaultMainWeatherViewModel {
     // - MARK: Input
-    
-    func isEqualIfNotReload(with: [CityWeatherDTO]) {
-        if with != self.data {
-            actions.reload()
+    func selectedItem(id: Int) {
+        guard let firstItem = data.first(where: {
+            $0.id == id
+        }) else {
+            return
         }
+                
+        print("selected: \(firstItem.id) \(firstItem.name)")
     }
 }

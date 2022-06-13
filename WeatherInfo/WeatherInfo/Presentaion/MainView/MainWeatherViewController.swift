@@ -20,6 +20,7 @@ class MainWeatherViewController: UIViewController, StoryboardInitiative {
         setLayout()
         setDataSource()
         updateSnapShot()
+        weatherCollectionView.delegate = self
         
     }
     
@@ -91,5 +92,15 @@ extension MainWeatherViewController {
         return vc
     }
     
+}
+
+extension MainWeatherViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? MainWeatherCollectionViewCell else {
+            return
+        }
+        
+        viewModel.selectedItem(id: cell.id)
+    }
 }
 

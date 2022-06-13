@@ -8,8 +8,7 @@
 import Foundation
 
 protocol MainWeatherUsecase {
-    func test(closure: @escaping (CityWeatherDTO) -> Void ) throws
-    func test2(closure: @escaping ([CityWeatherDTO]) -> Void) throws
+    func fetchMainCities(closure: @escaping ([CityWeatherDTO]) -> Void) throws
 }
 
 class DefaultMainWeatherUsecase: MainWeatherUsecase {
@@ -20,22 +19,7 @@ class DefaultMainWeatherUsecase: MainWeatherUsecase {
         self.repository = weatherRepo
     }
     
-    func test(closure: @escaping (CityWeatherDTO) -> Void ) throws {
-        Task {
-            do {
-                for code in APIEndPoint.CityCode.allCases {
-                    let data = try await repository.fetchCity(code: code)
-                    closure(data)
-                }
-                
-            } catch {
-                throw error
-            }
-            
-        }
-    }
-    
-    func test2(closure: @escaping ([CityWeatherDTO]) -> Void) throws {
+    func fetchMainCities(closure: @escaping ([CityWeatherDTO]) -> Void) throws {
         Task {
             do {
                 let data = try await repository.fetchMainCities()
