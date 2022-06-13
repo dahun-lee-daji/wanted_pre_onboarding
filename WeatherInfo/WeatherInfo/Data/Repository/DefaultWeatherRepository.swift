@@ -8,29 +8,37 @@
 import Foundation
 
 class DefaultWeatherRepository: WeatherRepository {
+    
     private let networkService: NetworkService
     
     init(networkService: NetworkService = DefaultNetworkService.init()) {
         self.networkService = networkService
     }
     
+    func fetchCitySimple(code: APIEndPoint.CityCode) async throws -> SimpleWeatherInfo {
+        do {
+            return try await fetchCity(code: code).toSimple()!
+        } catch {
+            throw error
+        }
+    }
+    
     func fetchCity(code: APIEndPoint.CityCode) async throws -> CityWeatherDTO {
         do {
             let request = try APIEndPoint.init().getEndPoint(city: code).asUrlRequest()
-            
+
             let task: Result<CityWeatherDTO,NetworkServiceErrors> = try await networkService.request(request: request)
-            
+
             switch task {
             case.success(let data) :
                 return data
             case.failure(let err):
                 throw err
             }
-            
+
         } catch {
             throw error
         }
-        
     }
     
     func fetchMainCities() async throws -> [CityWeatherDTO] {

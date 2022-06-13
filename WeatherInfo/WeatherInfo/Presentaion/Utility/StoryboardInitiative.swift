@@ -18,10 +18,6 @@ extension StoryboardInitiative where Self: UIViewController {
         return NSStringFromClass(Self.self).components(separatedBy: ".").last!
     }
     
-    static var question: String {
-        return NSStringFromClass(Self.self)
-    }
-    
     static func initiate(_ with: Bundle? = nil) -> Self {
         let fileName = defaultFileName
         let storyBoard = UIStoryboard.init(name: fileName, bundle: with)

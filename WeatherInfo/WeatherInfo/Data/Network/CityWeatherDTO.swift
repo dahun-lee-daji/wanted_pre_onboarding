@@ -72,6 +72,14 @@ struct CityWeatherDTO: Codable {
         return SimpleWeatherInfo.init(icon: icon,
                                       city: name,
                                       humidity: mainInfo.humidity,
-                                      temperature: mainInfo.temperature)
+                                      temp: mainInfo.temperature,
+                                      id: id)
     }
+}
+
+extension CityWeatherDTO: Equatable {
+    static func == (lhs: CityWeatherDTO, rhs: CityWeatherDTO) -> Bool {
+        lhs.id == rhs.id
+    }
+    
 }

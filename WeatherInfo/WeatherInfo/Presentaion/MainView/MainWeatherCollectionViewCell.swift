@@ -16,9 +16,14 @@ class MainWeatherCollectionViewCell: UICollectionViewCell {
     
     var id : Int!
     
+    override func awakeFromNib() {
+        self.clipsToBounds = true
+        self.layer.cornerRadius = 15
+    }
+    
     func configure(with item: SimpleWeatherInfo) {
         self.cityNameLabel.text = item.city
-        self.humidityLabel.text = item.humidity
+        self.humidityLabel.text = "\(item.humidity)"
         self.temperatureLabel.text = "\(item.temperature)"
         self.id = item.id
     }
