@@ -12,6 +12,7 @@
  - Storyboard 기반 UI를 구현했으며, AutoLayout이 지정되어 있음.
  - MVVM 구조를 채택하여 Testable한 코드를 작성하려 함.
  - protocol 기반 의존성 주입을 통해 Testable한 코드를 작성하려 함.
+ - 개발 의도: 간단한 앱이지만, 최대한 아는 만큼 담아보았다. 가능한 유연하고, 알아보기 쉬운 코드를 구성하려 노력하였다.
 
 # API 사용
   - [Weather API - OpenWeatherMap](https://openweathermap.org/api)
