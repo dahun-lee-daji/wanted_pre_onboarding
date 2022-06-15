@@ -19,8 +19,13 @@ class MainWeatherViewController: UIViewController {
         
         setLayout()
         setDataSource()
-        updateSnapShot()
         weatherCollectionView.delegate = self
+        
+        viewModel.loadData {
+            DispatchQueue.main.async { [unowned self] in
+                bind()
+            }
+        }
         
     }
     
@@ -75,18 +80,17 @@ class MainWeatherViewController: UIViewController {
         }
     }
     
-    func updateSnapShot() {
+    func bind() {
+        
         var snapShot = NSDiffableDataSourceSnapshot<Int, SimpleWeatherInfo>()
         
-        let data = viewModel.data
-        let simples = data.compactMap({$0.toSimple()})
-        snapShot.appendSections([0])
-        snapShot.appendItems(simples)
-        
-        DispatchQueue.global().async {
+        viewModel.data.bind({ [unowned self] data in
+            let simples = data.compactMap({$0.toSimple()})
+            snapShot.appendSections([0])
+            snapShot.appendItems(simples)
             self.dataSource.apply(snapShot,
                                   animatingDifferences: true)
-        }
+        })
     }
 
 }

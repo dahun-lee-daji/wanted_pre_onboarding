@@ -14,6 +14,7 @@ protocol DetailWeatherViewModelInput {
 protocol DetailWeatherViewModelOutput {
     var detailData: Observable<DetailWeatherInfo?> {get}
     var imageData: Observable<Data> {get}
+    func loadData(closure: @escaping () -> Void)
 }
 
 protocol DetailWeatherViewModel: DetailWeatherViewModelInput, DetailWeatherViewModelOutput {
@@ -34,10 +35,9 @@ class DefaultDetailWeatherViewModel: DetailWeatherViewModel {
     init(detailWeatherUseCase: DetailWeatherUsecase, actions: DetailWeatherViewModelActions) {
         self.useCase = detailWeatherUseCase
         self.actions = actions
-        loadData()
     }
     
-    private func loadData() {
+    func loadData(closure: @escaping () -> Void) {
         do {
             try useCase.fetchCityInfo(closure: { [unowned self] loaded in
                 guard let detail = loaded.toDetailInfo() else {
@@ -45,6 +45,7 @@ class DefaultDetailWeatherViewModel: DetailWeatherViewModel {
                 }
                 loadImage(id: detail.icon)
                 detailData = Observable(detail)
+                closure()
             })
         } catch {
             actions.popWithError(error)

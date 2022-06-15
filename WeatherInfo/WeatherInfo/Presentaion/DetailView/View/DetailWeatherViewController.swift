@@ -25,7 +25,12 @@ class DetailWeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bind()
+        viewModel.loadData {
+            DispatchQueue.main.async {[unowned self] in
+                bind()
+            }
+        }
+        
     }
     
     func bind() {
@@ -33,6 +38,7 @@ class DetailWeatherViewController: UIViewController {
             guard let data = data else {
                 return
             }
+            
             cityNameLabel.text = data.city
             currentTempLabel.text = data.temperature
             feeingTempLabel.text = data.feelingTemperature

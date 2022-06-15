@@ -27,23 +27,10 @@ class MainWeatherCoordinator {
     func start() {
         let vc = dependencies
             .makeMainWeatherViewController(actions:
-                    .init(reload: reload,
-                         pushDetailView: pushDetail)
+                    .init(pushDetailView: pushDetail)
             )
         
         self.navigationController?.pushViewController(vc, animated: false)
-    }
-    
-    private func reload() {
-        
-        DispatchQueue.main.async {
-            
-            guard let vc = self.navigationController?.topViewController as? MainWeatherViewController else {
-                return
-            }
-            
-            vc.updateSnapShot()
-        }
     }
     
     private func pushDetail(id: Int) {

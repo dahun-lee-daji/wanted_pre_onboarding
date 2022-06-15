@@ -12,7 +12,8 @@ protocol MainWeatherViewModelInput {
 }
 
 protocol MainWeatherViewModelOutput {
-    var data: [CityWeatherDTO] {get}
+    var data: Observable<[CityWeatherDTO]> {get}
+    func loadData( closure: @escaping () -> Void)
     func getImageData(id: String, closure: @escaping (Data) -> Void)
 }
 
@@ -21,7 +22,6 @@ protocol MainWeatherViewModel: MainWeatherViewModelInput, MainWeatherViewModelOu
 }
 
 struct MainWeatherViewModelActions {
-    let reload: () -> Void
     let pushDetailView: (Int) -> Void
 }
 
@@ -35,27 +35,12 @@ class DefaultMainWeatherViewModel: MainWeatherViewModel {
     init(mainWeatherUseCase: MainWeatherUsecase, actions: MainWeatherViewModelActions) {
         self.useCase = mainWeatherUseCase
         self.actions = actions
-        loadData()
     }
     
-    private func loadData() {
-        do {
-            try useCase.fetchMainCities(closure: {
-                self.data = $0
-            })
-            
-        } catch {
-            print(error)
-        }
-    }
     
     // - MARK: Output
     
-    var data = [CityWeatherDTO]() {
-        didSet {
-            actions.reload()
-        }
-    }
+    var data: Observable<[CityWeatherDTO]> = .init([])
     
     func getImageData(id: String, closure: @escaping (Data) -> Void) {
         do {
@@ -63,7 +48,18 @@ class DefaultMainWeatherViewModel: MainWeatherViewModel {
         } catch {
             print(error)
         }
-        
+    }
+    
+    func loadData( closure: @escaping () -> Void) {
+        do {
+            try useCase.fetchMainCities(closure: {
+                self.data = Observable($0)
+                closure()
+            })
+            
+        } catch {
+            print(error)
+        }
     }
     
 }
