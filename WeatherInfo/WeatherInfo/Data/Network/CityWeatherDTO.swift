@@ -75,6 +75,24 @@ struct CityWeatherDTO: Codable {
                                       temp: mainInfo.temperature,
                                       id: id)
     }
+    
+    func toDetailInfo() -> DetailWeatherInfo? {
+        guard let firstCode = weatherCodes.first else {
+            return nil
+        }
+        
+        return DetailWeatherInfo
+            .init(icon: firstCode.icon,
+                  city: name,
+                  temperature: mainInfo.temperature.formatted(),
+                  feelingTemperature: mainInfo.makeFeel.formatted(),
+                  currentHumidity: mainInfo.humidity.formatted(),
+                  lowTemperature: mainInfo.minTemp.formatted(),
+                  highTemperature: mainInfo.maxTemp.formatted(),
+                  atmospherePressureLabel: mainInfo.pressure.formatted(),
+                  windSpeed: wind.speed.formatted(),
+                  weatherDescription: firstCode.description)
+    }
 }
 
 extension CityWeatherDTO: Equatable {

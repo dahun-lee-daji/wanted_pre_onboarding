@@ -29,11 +29,8 @@ class DefaultMainWeatherViewModel: MainWeatherViewModel {
     
     private let useCase: MainWeatherUsecase
     private let actions: MainWeatherViewModelActions
-    var data = [CityWeatherDTO]() {
-        didSet {
-            actions.reload()
-        }
-    }
+    
+    // - MARK: LifeCycle
     
     init(mainWeatherUseCase: MainWeatherUsecase, actions: MainWeatherViewModelActions) {
         self.useCase = mainWeatherUseCase
@@ -49,6 +46,14 @@ class DefaultMainWeatherViewModel: MainWeatherViewModel {
             
         } catch {
             print(error)
+        }
+    }
+    
+    // - MARK: Output
+    
+    var data = [CityWeatherDTO]() {
+        didSet {
+            actions.reload()
         }
     }
     

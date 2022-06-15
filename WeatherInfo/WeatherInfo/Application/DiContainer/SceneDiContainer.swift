@@ -56,7 +56,7 @@ class SceneDIContainer {
     // MARK: - DetailWeatherView
     
     func makeDetailWeatherUseCase(id: Int) -> DetailWeatherUsecase {
-        return DefaultDetailWeatherUsecase.init(weatherRepo: makeWeatherRepository(), id: id)
+        return DefaultDetailWeatherUsecase.init(weatherRepository: makeWeatherRepository(),imageRepository: makeImageRepository(), id: id)
         }
     
     func makeDetailWeatherViewModel(action: DetailWeatherViewModelActions,

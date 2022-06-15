@@ -12,7 +12,8 @@ protocol DetailWeatherViewModelInput {
 }
 
 protocol DetailWeatherViewModelOutput {
-    
+    var detailData: Observable<DetailWeatherInfo?> {get}
+    var imageData: Observable<Data> {get}
 }
 
 protocol DetailWeatherViewModel: DetailWeatherViewModelInput, DetailWeatherViewModelOutput {
@@ -28,11 +29,7 @@ class DefaultDetailWeatherViewModel: DetailWeatherViewModel {
     private let useCase: DetailWeatherUsecase
     private let actions: DetailWeatherViewModelActions
     
-    private var data: CityWeatherDTO! {
-        didSet {
-            print(data)
-        }
-    }
+    // - MARK: LifeCycle
     
     init(detailWeatherUseCase: DetailWeatherUsecase, actions: DetailWeatherViewModelActions) {
         self.useCase = detailWeatherUseCase
@@ -40,15 +37,34 @@ class DefaultDetailWeatherViewModel: DetailWeatherViewModel {
         loadData()
     }
     
-    func loadData() {
+    private func loadData() {
         do {
             try useCase.fetchCityInfo(closure: { [unowned self] loaded in
-                data = loaded
+                guard let detail = loaded.toDetailInfo() else {
+                    return
+                }
+                loadImage(id: detail.icon)
+                detailData = Observable(detail)
             })
         } catch {
             actions.popWithError(error)
         }
     }
+    
+    private func loadImage(id: String) {
+        do {
+            try useCase.fetchImage(id: id, closure: { [unowned self] loaded in
+                imageData = Observable(loaded)
+            })
+        } catch {
+            actions.popWithError(error)
+        }
+    }
+    
+    // - MARK: Input
+    
+    var detailData = Observable<DetailWeatherInfo?>.init(nil)
+    var imageData = Observable<Data>(Data.init())
     
 }
 

@@ -23,7 +23,7 @@ struct SimpleWeatherInfo: Hashable {
         self.id = id
     }
     
-    nonisolated func hash(into hasher: inout Hasher) {
+    func hash(into hasher: inout Hasher) {
         hasher.combine(icon)
         hasher.combine(city)
         hasher.combine(humidity)

@@ -25,7 +25,28 @@ class DetailWeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("detailDidLoad")
+        bind()
+    }
+    
+    func bind() {
+        viewModel.detailData.bind({ [unowned self] data in
+            guard let data = data else {
+                return
+            }
+            cityNameLabel.text = data.city
+            currentTempLabel.text = data.temperature
+            feeingTempLabel.text = data.feelingTemperature
+            currentHumidityLabel.text = data.currentHumidity
+            lowTempLabel.text = data.lowTemperature
+            highTempLabel.text = data.highTemperature
+            atmPressureLabel.text = data.atmospherePressureLabel
+            windSpeedLabel.text = data.windSpeed
+            weatherDescLabel.text = data.weatherDescription
+        })
+        
+        viewModel.imageData.bind({ [unowned self] imageData in
+            iconImageView.image = UIImage.init(data: imageData)
+        })
     }
     
 }
