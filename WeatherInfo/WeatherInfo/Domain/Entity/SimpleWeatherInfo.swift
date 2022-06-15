@@ -7,7 +7,7 @@
 
 import Foundation
 
-actor SimpleWeatherInfo: Hashable {
+struct SimpleWeatherInfo: Hashable {
     
     let icon: String
     let city: String

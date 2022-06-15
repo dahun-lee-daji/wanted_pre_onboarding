@@ -37,19 +37,19 @@ class WeatherCacher: Cacher {
     private init() {
     }
     
-    let container = NSCache<NSString, CachedCityInfo>()
+    let container = NSCache<NSString, T>()
     
 }
 
 class ImageCacher: Cacher {
-    typealias T = UIImage
+    typealias T = CachedImage
     
     static var shared = ImageCacher()
     
     private init() {
     }
     
-    let container = NSCache<NSString, UIImage>()
+    let container = NSCache<NSString, T>()
     
 }
 
@@ -58,5 +58,13 @@ class CachedCityInfo {
     
     init(with data: CityWeatherDTO) {
         cached = data
+    }
+}
+
+class CachedImage {
+    var cached: UIImage
+    
+    init(with data: Data) {
+        cached = UIImage.init(data: data) ?? UIImage()
     }
 }

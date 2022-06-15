@@ -65,6 +65,12 @@ class MainWeatherViewController: UIViewController {
             }
             
             cell.configure(with: itemIdentifier)
+            self.viewModel.getImageData(id: itemIdentifier.icon) { data in
+                DispatchQueue.main.async {
+                    cell.iconImageView.image = UIImage.init(data: data)
+                }
+            }
+            
             return cell
         }
     }

@@ -31,7 +31,7 @@ class DefaultWeatherRepository: WeatherRepository {
 
             switch task {
             case.success(let data) :
-                getCache(data: data)
+                setCache(data: data)
                 return data
             case.failure(let err):
                 throw err
@@ -55,7 +55,7 @@ class DefaultWeatherRepository: WeatherRepository {
 
             switch task {
             case.success(let data) :
-                getCache(data: data)
+                setCache(data: data)
                 return data
             case.failure(let err):
                 throw err
@@ -84,7 +84,7 @@ class DefaultWeatherRepository: WeatherRepository {
                 
                 switch task {
                 case.success(let data) :
-                    getCache(data: data)
+                    setCache(data: data)
                     cities.append(data)
                 case.failure(let err):
                     throw err
@@ -99,7 +99,7 @@ class DefaultWeatherRepository: WeatherRepository {
     }
 
     
-    private func getCache(data: CityWeatherDTO) {
+    private func setCache(data: CityWeatherDTO) {
         let dataToCache = CachedCityInfo.init(with: data)
         weatherCacher.setCache(with: dataToCache, id: "\(data.id)")
     }

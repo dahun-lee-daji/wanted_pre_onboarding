@@ -14,6 +14,7 @@ enum NetworkServiceErrors: Error {
 
 protocol NetworkService {
     func request<T: Codable>(request: URLRequest) async throws -> Result<T,NetworkServiceErrors>
+    func request(request: URLRequest) async throws -> Data
 }
 
 class DefaultNetworkService: NetworkService {
@@ -26,9 +27,19 @@ class DefaultNetworkService: NetworkService {
     
     func request<T:Codable>(request: URLRequest) async throws -> Result<T, NetworkServiceErrors> {
         
-        do{
+        do {
             let data = try await networkRequester.request(request: request)
             return try decode(data: data)
+        } catch {
+            throw error
+        }
+    }
+    
+    func request(request: URLRequest) async throws -> Data {
+        
+        do {
+            let data = try await networkRequester.request(request: request)
+            return data
         } catch {
             throw error
         }

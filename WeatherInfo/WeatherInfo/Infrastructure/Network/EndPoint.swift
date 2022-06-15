@@ -16,13 +16,13 @@ struct EndPoint {
     private let host: String
     private let path: String
     private let method: HTTPMethod
-    private let queryItems: [URLQueryItem]
+    private let queryItems: [URLQueryItem]?
     
     init(scheme: String,
          host: String,
          apiPath: String,
          httpMethod: HTTPMethod,
-         items: [URLQueryItem]) {
+         items: [URLQueryItem]? = nil) {
         
         self.scheme = scheme
         self.host = host

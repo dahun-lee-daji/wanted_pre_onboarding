@@ -13,6 +13,7 @@ protocol MainWeatherViewModelInput {
 
 protocol MainWeatherViewModelOutput {
     var data: [CityWeatherDTO] {get}
+    func getImageData(id: String, closure: @escaping (Data) -> Void)
 }
 
 protocol MainWeatherViewModel: MainWeatherViewModelInput, MainWeatherViewModelOutput {
@@ -46,6 +47,14 @@ class DefaultMainWeatherViewModel: MainWeatherViewModel {
                 self.data = $0
             })
             
+        } catch {
+            print(error)
+        }
+    }
+    
+    func getImageData(id: String, closure: @escaping (Data) -> Void) {
+        do {
+            try useCase.fetchImage(id: id, closure: closure)
         } catch {
             print(error)
         }

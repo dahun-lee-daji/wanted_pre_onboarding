@@ -8,5 +8,5 @@
 import Foundation
 
 protocol ImageRepository {
-    
+    func fetchImage(id: String) async throws -> Data
 }

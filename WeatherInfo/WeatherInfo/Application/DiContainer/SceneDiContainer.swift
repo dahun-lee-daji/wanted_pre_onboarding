@@ -28,7 +28,8 @@ class SceneDIContainer {
     }
     
     func makeImageRepository() -> ImageRepository {
-        return DefaultImageRepository()
+        return DefaultImageRepository(networkService: dependencies.apiNetworkService,
+                                      imageCacher: dependencies.imageCache)
     }
     
     // MARK: - Coordinator
@@ -40,7 +41,7 @@ class SceneDIContainer {
     // MARK: - MainWeatherView
     
     func makeMainWeatherUseCase() -> MainWeatherUsecase {
-        return DefaultMainWeatherUsecase.init(weatherRepo: makeWeatherRepository())
+        return DefaultMainWeatherUsecase.init(weatherRepository: makeWeatherRepository(), imageRepository: makeImageRepository())
         }
     
     func makeMainWeatherViewModel(action: MainWeatherViewModelActions) -> MainWeatherViewModel {

@@ -15,16 +15,15 @@ struct APIEndPoint {
     
     enum ApiPath: String {
         case weather2half = "/data/2.5/weather"
+        case image = "/img/wn/"
     }
     
-    private let scheme: SchemeType
-    private let host = "api.openweathermap.org"
-    private let apiPath: ApiPath
+    enum HostType: String {
+        case api = "api.openweathermap.org"
+        case image = "openweathermap.org"
+    }
     
-    init(scheme: SchemeType = .https,
-         apiPath: ApiPath = .weather2half) {
-        self.scheme = scheme
-        self.apiPath = apiPath
+    init() {
     }
     
     private let unitQueryItem: URLQueryItem = .init(name: "units", value: "metric")
@@ -34,9 +33,9 @@ struct APIEndPoint {
     func getEndPoint(city: CityCode) -> EndPoint {
         let cityId = URLQueryItem.init(name: "id", value: "\(city.rawValue)")
         
-        return EndPoint.init(scheme: scheme.rawValue,
-                             host: host,
-                             apiPath: apiPath.rawValue,
+        return EndPoint.init(scheme: SchemeType.https.rawValue,
+                             host: HostType.api.rawValue,
+                             apiPath: ApiPath.weather2half.rawValue,
                              httpMethod: .get,
                              items: [cityId,
                                      unitQueryItem,
@@ -49,9 +48,9 @@ struct APIEndPoint {
         
         let cityId = URLQueryItem.init(name: "id", value: "\(cityCode)")
         
-        return EndPoint.init(scheme: scheme.rawValue,
-                             host: host,
-                             apiPath: apiPath.rawValue,
+        return EndPoint.init(scheme: SchemeType.https.rawValue,
+                             host: HostType.api.rawValue,
+                             apiPath: ApiPath.weather2half.rawValue,
                              httpMethod: .get,
                              items: [cityId,
                                      unitQueryItem,
@@ -66,6 +65,13 @@ struct APIEndPoint {
         })
     }
     
+    func getImageEndPoint(id: String) -> EndPoint {
+        return EndPoint.init(scheme: SchemeType.https.rawValue,
+                             host: HostType.image.rawValue,
+                             apiPath: ApiPath.image.rawValue + id + ".png",
+                             httpMethod: .get
+        )
+    }
 }
 
 extension APIEndPoint {
