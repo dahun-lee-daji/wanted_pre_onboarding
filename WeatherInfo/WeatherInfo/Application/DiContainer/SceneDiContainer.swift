@@ -11,6 +11,8 @@ class SceneDIContainer {
     
     struct Dependencies {
         let apiNetworkService: NetworkService
+        let imageCache: ImageCacher
+        let weatherCache: WeatherCacher
     }
     
     private let dependencies: Dependencies
@@ -21,7 +23,12 @@ class SceneDIContainer {
     
     // MARK: - Repositories
     func makeWeatherRepository() -> WeatherRepository {
-        return DefaultWeatherRepository(networkService: dependencies.apiNetworkService)
+        return DefaultWeatherRepository(networkService: dependencies.apiNetworkService,
+                                        weatherCacher: dependencies.weatherCache)
+    }
+    
+    func makeImageRepository() -> ImageRepository {
+        return DefaultImageRepository()
     }
     
     // MARK: - Coordinator

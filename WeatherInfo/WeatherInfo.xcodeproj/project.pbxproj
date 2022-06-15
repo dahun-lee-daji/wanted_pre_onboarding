@@ -15,6 +15,9 @@
 		B0954C3C2853560C00920797 /* MainWeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0954C3B2853560C00920797 /* MainWeatherViewModel.swift */; };
 		B0954C3E285356FC00920797 /* MainWeatherUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0954C3D285356FC00920797 /* MainWeatherUsecase.swift */; };
 		B0954C41285359AB00920797 /* StoryboardInitiative.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0954C40285359AB00920797 /* StoryboardInitiative.swift */; };
+		B09FF9602859A35700F45987 /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09FF95F2859A35700F45987 /* ImageRepository.swift */; };
+		B09FF9622859A37A00F45987 /* DefaultImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09FF9612859A37A00F45987 /* DefaultImageRepository.swift */; };
+		B09FF9642859A3F500F45987 /* Cacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09FF9632859A3F500F45987 /* Cacher.swift */; };
 		B0B4A8AA28521513008F308B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B4A8A928521513008F308B /* AppDelegate.swift */; };
 		B0B4A8AC28521513008F308B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B4A8AB28521513008F308B /* SceneDelegate.swift */; };
 		B0B4A8AE28521513008F308B /* MainWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B4A8AD28521513008F308B /* MainWeatherViewController.swift */; };
@@ -63,6 +66,9 @@
 		B0954C3B2853560C00920797 /* MainWeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherViewModel.swift; sourceTree = "<group>"; };
 		B0954C3D285356FC00920797 /* MainWeatherUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherUsecase.swift; sourceTree = "<group>"; };
 		B0954C40285359AB00920797 /* StoryboardInitiative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardInitiative.swift; sourceTree = "<group>"; };
+		B09FF95F2859A35700F45987 /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
+		B09FF9612859A37A00F45987 /* DefaultImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultImageRepository.swift; sourceTree = "<group>"; };
+		B09FF9632859A3F500F45987 /* Cacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cacher.swift; sourceTree = "<group>"; };
 		B0B4A8A628521513008F308B /* WeatherInfo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherInfo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0B4A8A928521513008F308B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0B4A8AB28521513008F308B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -348,6 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				B0B8194E2852312000C7C573 /* WeatherRepository.swift */,
+				B09FF95F2859A35700F45987 /* ImageRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -356,6 +363,8 @@
 			isa = PBXGroup;
 			children = (
 				B0B81951285231BC00C7C573 /* DefaultWeatherRepository.swift */,
+				B09FF9612859A37A00F45987 /* DefaultImageRepository.swift */,
+				B09FF9632859A3F500F45987 /* Cacher.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -492,6 +501,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B09FF9622859A37A00F45987 /* DefaultImageRepository.swift in Sources */,
 				B0B66D172853735D006C06C1 /* SimpleWeatherInfo.swift in Sources */,
 				B0954C41285359AB00920797 /* StoryboardInitiative.swift in Sources */,
 				B0B8194F2852312000C7C573 /* WeatherRepository.swift in Sources */,
@@ -511,8 +521,10 @@
 				B0954C312853518600920797 /* AppDiContainer.swift in Sources */,
 				B0954C352853523A00920797 /* AppCoordinator.swift in Sources */,
 				B0B8194B28522A0300C7C573 /* NetworkService.swift in Sources */,
+				B09FF9602859A35700F45987 /* ImageRepository.swift in Sources */,
 				B0B81952285231BC00C7C573 /* DefaultWeatherRepository.swift in Sources */,
 				B0954C382853549100920797 /* MainWeatherCoordinator.swift in Sources */,
+				B09FF9642859A3F500F45987 /* Cacher.swift in Sources */,
 				B0954C3E285356FC00920797 /* MainWeatherUsecase.swift in Sources */,
 				B0B8194628521F6800C7C573 /* NetworkRequester.swift in Sources */,
 			);

@@ -6,31 +6,32 @@
 //
 
 import Foundation
+import UIKit
 
 class DefaultWeatherRepository: WeatherRepository {
     
     private let networkService: NetworkService
+    private let weatherCacher: WeatherCacher
     
-    init(networkService: NetworkService = DefaultNetworkService.init()) {
+    init(networkService: NetworkService = DefaultNetworkService.init(),
+         weatherCacher: WeatherCacher) {
         self.networkService = networkService
-    }
-    
-    func fetchCitySimple(code: APIEndPoint.CityCode) async throws -> SimpleWeatherInfo {
-        do {
-            return try await fetchCity(code: code).toSimple()!
-        } catch {
-            throw error
-        }
+        self.weatherCacher = weatherCacher
     }
     
     func fetchCity(code: APIEndPoint.CityCode) async throws -> CityWeatherDTO {
         do {
+            if let cached = weatherCacher.getCache(id: "\(code)") {
+                return cached.cached
+            }
+                
             let request = try APIEndPoint.init().getEndPoint(city: code).asUrlRequest()
 
             let task: Result<CityWeatherDTO,NetworkServiceErrors> = try await networkService.request(request: request)
 
             switch task {
             case.success(let data) :
+                getCache(data: data)
                 return data
             case.failure(let err):
                 throw err
@@ -43,12 +44,18 @@ class DefaultWeatherRepository: WeatherRepository {
     
     func fetchCity(code: Int) async throws -> CityWeatherDTO {
         do {
+            
+            if let cached = weatherCacher.getCache(id: "\(code)") {
+                return cached.cached
+            }
+            
             let request = try APIEndPoint.init().getEndPoint(cityCode: code).asUrlRequest()
 
             let task: Result<CityWeatherDTO,NetworkServiceErrors> = try await networkService.request(request: request)
 
             switch task {
             case.success(let data) :
+                getCache(data: data)
                 return data
             case.failure(let err):
                 throw err
@@ -67,11 +74,17 @@ class DefaultWeatherRepository: WeatherRepository {
                 try $0.asUrlRequest()
             })
             
-            for request in apiRequests {
+            for (request,id) in zip(apiRequests, APIEndPoint.CityCode.allCases) {
+                
+                if let cached = weatherCacher.getCache(id: "\(id.rawValue)") {
+                    cities.append(cached.cached)
+                }
+                
                 let task: Result<CityWeatherDTO,NetworkServiceErrors> = try await networkService.request(request: request)
                 
                 switch task {
                 case.success(let data) :
+                    getCache(data: data)
                     cities.append(data)
                 case.failure(let err):
                     throw err
@@ -84,5 +97,10 @@ class DefaultWeatherRepository: WeatherRepository {
         
         return cities
     }
+
     
+    private func getCache(data: CityWeatherDTO) {
+        let dataToCache = CachedCityInfo.init(with: data)
+        weatherCacher.setCache(with: dataToCache, id: "\(data.id)")
+    }
 }

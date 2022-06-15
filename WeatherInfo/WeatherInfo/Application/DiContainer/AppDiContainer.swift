@@ -13,7 +13,10 @@ class AppDiContainer {
     
     func makeSceneDIContainer() -> SceneDIContainer {
         let dependencies = SceneDIContainer
-            .Dependencies(apiNetworkService: apiNetworkService)
+            .Dependencies(apiNetworkService: apiNetworkService,
+                          imageCache: ImageCacher.shared,
+                          weatherCache: WeatherCacher.shared
+            )
         return SceneDIContainer(dependencies: dependencies)
     }
 }
